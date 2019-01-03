@@ -90,3 +90,13 @@ cold_start_test %>%
 # Hmm... some series have quite a long gap - for example, end of cold start = 2013-10-08, start of submission = 2013-10-15
 summary(filter(cold_start_test, series_id == 102171))
 summary(filter(submission_format, series_id == 102171))
+
+
+# Plot some sample training series
+seriesToPlot <- sample(unique(consumption_train$series_id), 3)
+
+consumption_train %>%
+  filter(series_id %in% seriesToPlot) %>%
+  ggplot(., aes(timestamp, consumption, colour = series_id)) + 
+  geom_line() + 
+  facet_wrap(~ series_id, scales = "free", ncol = 1)
